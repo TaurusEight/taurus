@@ -1,7 +1,9 @@
 #ifndef __PANEL_HH__
 #define __PANEL_HH__
 
-namespace jinx {
+#include <panel.h>  // curses header
+
+namespace curses {
 
   class panel {
 
@@ -14,7 +16,7 @@ namespace jinx {
     operator WINDOW*() { return window_; };
     operator PANEL*() { return panel_; };
 
-    static update() { ::update_panels(); };
+    static void update() { ::update_panels(); };
 
     void hide();
     void show();
@@ -36,6 +38,6 @@ namespace jinx {
 
   };  // end class panel
 
-};  // end NS jinx
+};  // end NS curses
 
 #endif  // __PANEL_HH__

@@ -1,8 +1,16 @@
 
-dir = curses
-src = window panel
-local = $(foreach F,$(src),./$(dir)/$(F).o)
-module = ./$(dir)/lib$(dir).a
-trash += $(local) $(module)
+#
+# Curses Module
+#
 
-$(lib) : $(local) ; ar rcs $@ $^
+# Variables
+curses_ := window panel
+
+curses_src = $(foreach F,$(curses_),curses/$(F).cc)
+src += $(curses_src)
+
+curses_target = $(call libname,curses)
+target_objs += $(curses_target)
+
+# Target
+$(curses_target) : $(curses_src:.cc=.o) ; ar rcs $@ $^
