@@ -24,10 +24,14 @@ namespace curses {
 
     operator WINDOW*() { return window_; };
 
+    void mvwprintw( int, int, const char* );
+    void box( int = 0, int = 0 );
+    void wbkgd( const chtype );
     void refresh();
 
   protected:
 
+    void error( int, const char* );
 
   private:
 
