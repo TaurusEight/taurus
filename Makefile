@@ -2,8 +2,9 @@
 
 
 %.d : %.cc ; ./dep.sh $<
+%.o : %.d ; g++ -std=c++11 -c -o $@ $
 
-cxx := /usr/bin/g++
+cc := /usr/bin/g++
 
 
 target := sample
@@ -22,7 +23,7 @@ include ./curses/module.mk
 include ./module.mk
 
 $(target):	$(modules)
-	$(cxx) $(cflags) -c -o $@ $^
+	$(cc) $(ccflags) -c -o $@ $^
 
 dump:
 	@echo $(trash)
