@@ -5,47 +5,38 @@
 
 # Macro
 cc := /usr/bin/g++
-libs := -lncurses -lmetric -lcurses -L./metric -L./curses
+libs = -lncurses
 libname = $(1)/lib$(1).a
 ccflags = -std=c++11
 
 # Main target
 all : demo
 
+library = $(subst LIB,$(1),-lLIB -L./LIB)
 
-modules := curses metric
+modules := . curses metric
 cflags += $(patsubst %,-I%,$(modules))
-target := demo
 src =
-target_objs =
+targets =
 
-
-include ./module.mk
+#include ./module.mk
 include $(patsubst %,%/module.mk,$(modules))
 
 obj := $(src:.cc=.o)
-
-include $(obj:.o=.d)
-
-$(target):	$(target_objs)
-	$(cc) $(cflags) -o $@ $< $(libs)
+dependents := $(src:.cc=.d)
+include $(dependents)
 
 
 clean:
-	rm -f $(obj) $(obj:.o=.d) $(target_objs) $(target)
+	rm --force $(targets)
+	rm --force $(src:.cc=.o)
+	rm --force $(dependents)
 
-$(target):	$(modules)
-	$(cc) $(ccflags) -c -o $@ $^
 
 dump:
 	@echo ===========================
 	@echo libs: $(libs)
 	@echo src: $(src)
 	@echo obj: $(obj)
-	@echo target_objs: $(target_src)
-
-sample:	exception.o sample.o
-	$(cc) $(ccflag) -o $@ $^
-
-sample.o:	sample.cc exception.hh
-	$(cc) $(ccflag) -c -o $@ $<
+	@echo targets: $(targets)
+	@echo dependets: $(dependents)

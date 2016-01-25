@@ -3,14 +3,12 @@
 # Metric Module
 #
 
-# Variables
-metric_ = point
+metric_list := metric/point.cc
+metric_target := metric/libmetric.a
 
-metric_src = $(foreach F,$(metric_),metric/$(F).cc)
-src += $(metric_src)
+src += $(metric_list)
+targets += $(metric_target)
+libs += $(call library,metric)
 
-metric_target = $(call libname,metric)
-target_objs += $(metric_target)
-
-# Target
-$(target_objs) : $(metric_src:.cc=.o) ; ar rcs $@ $^
+# Module target
+$(metric_target) : $(metric_list:.cc=.o) ; ar rcs $@ $^

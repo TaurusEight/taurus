@@ -1,9 +1,9 @@
-// Time-stamp: <2015-12-14 02:38:08 daniel>
+// Time-stamp: <2016-01-25 15:49:49 dmendyke>
 
 //
 // exception.cc: Exception class used with the taurus library
 //
-
+// Time-stamp: <>
 
 // Requried header files
 //------------------------------------------------------------------------------
@@ -23,18 +23,20 @@
 // Class constructor
 //-----------------------------------------------------------------------------
 taurus::exception::exception( int err_num )
-  : std::runtime_error( nullptr ),
-    message_( "xx" ) {
+  : std::runtime_error( "" ),
+    message_( ) {
 
   std::cout << "constructor" << std::endl;
 
-  char message[ exception::length ];
-  if ( strerror_r( err_num, message, exception::length ) != 0x0 ) {
-    throw runtime_error( "Call to strerror_r failed!" );
-  };  // end if strerror
+  char buffer[ exception::length ];
+  auto cstr = strerror_r( err_num, buffer, exception::length );
 
-  std::cout << "message_: " << message_ << std::endl;
-  message_.assign( message );  // save the message
+  if ( cstr == 0x0 ) throw runtime_error( "Call to strerror_r failed!" );
+
+
+  std::cout << "cstr: " << cstr[ 0 ] << std::endl;
+  message_.assign( cstr );  // save the message
+  std::cout << "err_num: " << err_num << " -- message_: " << message_ << std::endl;
 
 };  // end constructor
 

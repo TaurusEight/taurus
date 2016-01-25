@@ -3,14 +3,12 @@
 # Curses Module
 #
 
-# Variables
-curses_ := window panel
+curses_list := curses/window.cc curses/panel.cc
+curses_target := curses/libcurses.a
 
-curses_src = $(foreach F,$(curses_),curses/$(F).cc)
-src += $(curses_src)
+src += $(curses_list)
+targets += $(curses_target)
+libs += $(call library,curses)
 
-curses_target = $(call libname,curses)
-target_objs += $(curses_target)
-
-# Target
-$(curses_target) : $(curses_src:.cc=.o) ; ar rcs $@ $^
+# Module target
+$(curses_target) : $(curses_list:.cc=.o) ; ar rcs $@ $^

@@ -1,4 +1,4 @@
-// Time-stamp: <2015-12-14 02:35:42 daniel>
+// Time-stamp: <2016-01-25 15:33:15 dmendyke>
 #ifndef __EXCEPTION_HH__
 #define __EXCEPTION_HH__
 
@@ -25,7 +25,7 @@ namespace taurus {
 
   private:
 
-    enum { length = 64 };  // length of the message string
+    enum { length = 96 };  // length of the message string
     std::string message_;  // error message
 
   };  // end class exception

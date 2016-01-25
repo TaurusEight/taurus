@@ -1,7 +1,14 @@
 
-base_ = main exception
+#
+# Main Module
+#
 
-base_src = $(foreach F,$(base_),$(F).cc)
-src += $(base_src)
+demo_list := main.cc exception.cc
 
-target_objs += $(base_src:.cc=.o)
+src += $(demo_list) sample.cc
+targets += demo sample
+
+demo : $(demo_list:.cc=.o) curses/libcurses.a metric/libmetric.a
+	$(cc) $(cflags) -o $@ $(demo_list:.cc=.o) $(libs)
+
+sample : sample.o exception.o ; $(cc) $(cflags) -o $@ $^

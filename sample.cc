@@ -8,7 +8,7 @@ int main() {
   try {
 
     std::cout << "DEBUG" << std::endl;
-    throw taurus::exception( 8 );
+    throw taurus::exception( 5 );
 
   } catch( std::exception& e ) {
 
