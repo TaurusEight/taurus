@@ -1,4 +1,4 @@
-// Time-stamp: <2016-01-25 15:49:49 dmendyke>
+// Time-stamp: <2018-05-31 15:24:04 daniel>
 
 //
 // exception.cc: Exception class used with the taurus library
@@ -47,13 +47,14 @@ taurus::exception::exception( const taurus::exception& except )
   : std::runtime_error( nullptr ),
     message_( except.message_ ) {
 
-  std::cout << "copy constructor" << std::endl;
+  std::cout << "DB: exception copy constructor" << std::endl;
 
 };  // end copy construtor
 
 // Return the error message
 //-----------------------------------------------------------------------------
 const char* taurus::exception::what() const noexcept {
-  std::cout << "DEBUG03" << std::endl;
+
   return message_.c_str();
+
 };  // end what

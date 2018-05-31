@@ -1,13 +1,15 @@
 
-# Rules
-%.d : %.cc ; ./dep.sh $<
-%.o : %.d ; g++ -std=c++11 -c -o $@ $
 
 # Macro
 cc := /usr/bin/g++
 libs = -lncurses
 libname = $(1)/lib$(1).a
-ccflags = -std=c++11
+ccflags = -std=c++14
+
+# Rules
+%.d : %.cc ; $(cc) $(ccflags) -c -MM -MT $(<:.cc=.o) -MT $(<:.cc=.d) -MF $(<:.cc=.d) $<
+%.o : %.cc ; $(cc) $(ccflags) -c -o $@ $<
+
 
 # Main target
 all : demo
