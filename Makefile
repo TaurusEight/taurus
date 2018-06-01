@@ -4,7 +4,7 @@
 cc := /usr/bin/g++
 libs = -lncurses
 libname = $(1)/lib$(1).a
-ccflags = -std=c++14
+ccflags = -std=c++17
 
 # Rules
 %.d : %.cc ; $(cc) $(ccflags) -c -MM -MT $(<:.cc=.o) -MT $(<:.cc=.d) -MF $(<:.cc=.d) $<
